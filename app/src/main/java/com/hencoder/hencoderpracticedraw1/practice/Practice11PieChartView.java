@@ -82,6 +82,8 @@ public class Practice11PieChartView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.translate(canvas.getWidth() / 2, canvas.getHeight() / 2);  // 将画布(0，0)坐标点移到画布的中心
+        isMove = false;
+        startAngle = 0f; //这两句代码很重要，不然有bug
         for (Data data : datas) {
             if (isMove) {
                 canvas.translate(-lineStartX * 0.1f, -lineStartY * 0.1f);

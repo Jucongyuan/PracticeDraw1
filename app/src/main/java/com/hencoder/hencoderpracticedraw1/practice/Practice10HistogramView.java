@@ -67,6 +67,7 @@ public class Practice10HistogramView extends View {
         }
         paint = new Paint();
         paint.setStrokeWidth(2);
+
     }
 
     @Override
@@ -78,13 +79,15 @@ public class Practice10HistogramView extends View {
         paint.setTextSize(72);
         canvas.drawText(NAME, (canvas.getWidth() - paint.measureText(NAME)) / 2, canvas.getHeight() * 0.9f, paint);
 
-        canvas.translate(canvas.getWidth() * 0.1f, canvas.getHeight() * 0.7f);
+        canvas.translate(canvas.getWidth() * 0.1f, canvas.getHeight() * 0.7f); // 将画图原点移动直方图的原点位置
 
         width = (canvas.getWidth() * 0.8f - 100) / datas.size() * 0.8f;
         space = (canvas.getWidth() * 0.8f - 100) / datas.size() * 0.2f;
+
+        canvas.drawLine(0, 0, canvas.getWidth() * 0.8f, 0, paint);   // 画x轴
+        canvas.drawLine(0, 0, 0, -canvas.getHeight() * 0.6f, paint); // 画y轴
+
         startX = 0f;
-        canvas.drawLine(0, 0, canvas.getWidth() * 0.8f, 0, paint);
-        canvas.drawLine(0, 0, 0, -canvas.getHeight() * 0.6f, paint);
 
         paint.setTextSize(36);
         paint.setStyle(Paint.Style.FILL);
