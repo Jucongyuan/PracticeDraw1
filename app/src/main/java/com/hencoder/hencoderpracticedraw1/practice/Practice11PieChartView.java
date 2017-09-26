@@ -73,7 +73,7 @@ public class Practice11PieChartView extends View {
             total += d.getNumber();
             max = Math.max(max, d.getNumber());
         }
-        paint = new Paint();
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setStrokeWidth(2);
         paint.setTextSize(30);
         rectF = new RectF(-300, -300, 300, 300);

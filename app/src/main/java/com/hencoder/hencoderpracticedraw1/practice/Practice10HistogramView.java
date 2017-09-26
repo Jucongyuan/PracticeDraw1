@@ -66,7 +66,7 @@ public class Practice10HistogramView extends View {
         for (Data d : datas) {
             max = Math.max(max, d.getNumber());
         }
-        paint = new Paint();
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setStrokeWidth(2);
     }
 
