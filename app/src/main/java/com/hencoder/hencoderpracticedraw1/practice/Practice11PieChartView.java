@@ -24,7 +24,7 @@ public class Practice11PieChartView extends View {
     private RectF rectF;
     private float total;
     private float max;
-    private boolean isMove = false;
+//    private boolean isMove = false;
 
     float startAngle = 0f; // 开始的角度
     float sweepAngle;      // 扫过的角度
@@ -82,13 +82,8 @@ public class Practice11PieChartView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.translate(canvas.getWidth() / 2, canvas.getHeight() / 2);  // 将画布(0，0)坐标点移到画布的中心
-        isMove = false;
-        startAngle = 0f; //这两句代码很重要，不然有bug
+        startAngle = 0f; //这句代码很重要，不然有bug
         for (Data data : datas) {
-            if (isMove) {
-                canvas.translate(-lineStartX * 0.1f, -lineStartY * 0.1f);
-                isMove = false;
-            }
             paint.setStyle(Paint.Style.FILL);
             paint.setColor(data.getColor());
             sweepAngle = data.getNumber() / total * 360f;
@@ -98,9 +93,9 @@ public class Practice11PieChartView extends View {
             lineEndX = 350 * (float) Math.cos(lineAngle / 180 * Math.PI);
             lineEndY = 350 * (float) Math.sin(lineAngle / 180 * Math.PI);
             if (data.getNumber() == max) {
+                canvas.save();
                 canvas.translate(lineStartX * 0.1f, lineStartY * 0.1f);
                 canvas.drawArc(rectF, startAngle, sweepAngle, true, paint);
-                isMove = true;
             } else {
                 canvas.drawArc(rectF, startAngle, sweepAngle - 1.0f, true, paint);
             }
@@ -113,6 +108,9 @@ public class Practice11PieChartView extends View {
             } else {
                 canvas.drawLine(lineEndX, lineEndY, lineEndX + 50, lineEndY, paint);
                 canvas.drawText(data.getName(), lineEndX + 50 + 10, lineEndY, paint);
+            }
+            if (data.getNumber() == max) {
+                canvas.restore();
             }
             startAngle += sweepAngle;
         }
