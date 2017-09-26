@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -67,14 +68,12 @@ public class Practice10HistogramView extends View {
         }
         paint = new Paint();
         paint.setStrokeWidth(2);
-
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.WHITE);
         paint.setTextSize(72);
         canvas.drawText(NAME, (canvas.getWidth() - paint.measureText(NAME)) / 2, canvas.getHeight() * 0.9f, paint);
@@ -84,6 +83,7 @@ public class Practice10HistogramView extends View {
         width = (canvas.getWidth() * 0.8f - 100) / datas.size() * 0.8f;
         space = (canvas.getWidth() * 0.8f - 100) / datas.size() * 0.2f;
 
+        paint.setStyle(Paint.Style.STROKE);
         canvas.drawLine(0, 0, canvas.getWidth() * 0.8f, 0, paint);   // 画x轴
         canvas.drawLine(0, 0, 0, -canvas.getHeight() * 0.6f, paint); // 画y轴
 

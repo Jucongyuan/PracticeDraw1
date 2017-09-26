@@ -19,16 +19,16 @@ import java.util.List;
 
 public class Practice11PieChartView extends View {
 
+    private float radius;
     private List<Data> datas;
     private Paint paint;
     private RectF rectF;
     private float total;
     private float max;
-//    private boolean isMove = false;
 
     float startAngle = 0f; // 开始的角度
     float sweepAngle;      // 扫过的角度
-    float lineAngle;       // 当前扇形一般的角度
+    float lineAngle;       // 当前扇形一半的角度
 
     float lineStartX = 0f; // 直线开始的X坐标
     float lineStartY = 0f; // 直线开始的Y坐标
@@ -51,6 +51,7 @@ public class Practice11PieChartView extends View {
     }
 
     private void init() {
+        radius = 300;
         datas = new ArrayList<>();
         Data data = new Data("Gingerbread", 10.0f, Color.WHITE);
         datas.add(data);
@@ -88,10 +89,10 @@ public class Practice11PieChartView extends View {
             paint.setColor(data.getColor());
             sweepAngle = data.getNumber() / total * 360f;
             lineAngle = startAngle + sweepAngle / 2;
-            lineStartX = 300 * (float) Math.cos(lineAngle / 180 * Math.PI);
-            lineStartY = 300 * (float) Math.sin(lineAngle / 180 * Math.PI);
-            lineEndX = 350 * (float) Math.cos(lineAngle / 180 * Math.PI);
-            lineEndY = 350 * (float) Math.sin(lineAngle / 180 * Math.PI);
+            lineStartX = radius * (float) Math.cos(lineAngle / 180 * Math.PI);
+            lineStartY = radius * (float) Math.sin(lineAngle / 180 * Math.PI);
+            lineEndX = (radius + 50) * (float) Math.cos(lineAngle / 180 * Math.PI);
+            lineEndY = (radius + 50) * (float) Math.sin(lineAngle / 180 * Math.PI);
             if (data.getNumber() == max) {
                 canvas.save();
                 canvas.translate(lineStartX * 0.1f, lineStartY * 0.1f);
@@ -104,9 +105,11 @@ public class Practice11PieChartView extends View {
             canvas.drawLine(lineStartX, lineStartY, lineEndX, lineEndY, paint);
             if (lineAngle > 90 && lineAngle <= 270) {
                 canvas.drawLine(lineEndX, lineEndY, lineEndX - 50, lineEndY, paint);
+                paint.setStyle(Paint.Style.FILL);
                 canvas.drawText(data.getName(), lineEndX - 50 - 10 - paint.measureText(data.getName()), lineEndY, paint);
             } else {
                 canvas.drawLine(lineEndX, lineEndY, lineEndX + 50, lineEndY, paint);
+                paint.setStyle(Paint.Style.FILL);
                 canvas.drawText(data.getName(), lineEndX + 50 + 10, lineEndY, paint);
             }
             if (data.getNumber() == max) {
